@@ -18,7 +18,7 @@ This is a template for a modern development environment using VSCode for Roblox 
 - "@rbxts/cmdr"
 - "@rbxts/testez"
 
-> [!INFO]
+> [!NOTE]
 > Confirmed to work
 
 - "@rbxts/react"
