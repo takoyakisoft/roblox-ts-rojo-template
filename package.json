@@ -23,7 +23,6 @@
 		"@rbxts/cmdr": "^1.12.1",
 		"@rbxts/compiler-types": "2.3.0-types.2",
 		"@rbxts/janitor": "1.18.3-ts.0",
-		"@rbxts/knit": "0.0.21-alpha.0",
 		"@rbxts/profileservice": "^1.4.2",
 		"@rbxts/react": "^17.2.3",
 		"@rbxts/react-roblox": "^17.2.3",
