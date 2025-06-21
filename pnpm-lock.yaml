@@ -26,6 +26,9 @@ importers:
       '@rbxts/roact':
         specifier: ^3.0.1
         version: 3.0.1
+      '@rbxts/services':
+        specifier: ^1.5.5
+        version: 1.5.5
       '@rbxts/testez':
         specifier: 0.4.2-ts.0
         version: 0.4.2-ts.0
@@ -157,6 +160,9 @@ packages:
 
   '@rbxts/roact@3.0.1':
     resolution: {integrity: sha512-1RVGy8PL078pXdrrYboiKftMKqB4YgYd4Sh/M3aWkhY2TKBBL+hlT1Om35cmCn8sKzdzQwzf2CbmcU49lHoNuw==}
+
+  '@rbxts/services@1.5.5':
+    resolution: {integrity: sha512-Hu7QH2ecefS60zpakKG3T2vgABydoOJqpSG7nXr59wFAbPk/cA+OcsntYPHUWyHAat0VFGZ5jNZLTLdiqfssvg==}
 
   '@rbxts/testez@0.4.2-ts.0':
     resolution: {integrity: sha512-8Q+OG9ddTD2P3aARCuRKpPqUBvuifgSnHvQMZ6jBMqUzxhIysnb0l4c3vnnaQnvdyZ1OW9tKxcdEHMGTb67uOw==}
@@ -940,6 +946,8 @@ snapshots:
   '@rbxts/replicaservice@1.1.0-ts.2': {}
 
   '@rbxts/roact@3.0.1': {}
+
+  '@rbxts/services@1.5.5': {}
 
   '@rbxts/testez@0.4.2-ts.0': {}
 

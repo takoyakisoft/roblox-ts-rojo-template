@@ -26,6 +26,7 @@
 		"@rbxts/profileservice": "^1.4.2",
 		"@rbxts/replicaservice": "1.1.0-ts.2",
 		"@rbxts/roact": "^3.0.1",
+		"@rbxts/services": "^1.5.5",
 		"@rbxts/testez": "0.4.2-ts.0",
 		"@rbxts/types": "^1.0.852",
 		"@typescript-eslint/eslint-plugin": "^8.34.1",
