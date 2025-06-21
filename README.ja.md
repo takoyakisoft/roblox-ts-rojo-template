@@ -22,6 +22,9 @@ Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプ�
 
 # インストール
 
+> [!TIP]
+> "Use this template"ボタンから使えます。
+
 ## パッケージのインストール
 
 ```bash

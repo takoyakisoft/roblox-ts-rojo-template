@@ -24,6 +24,9 @@ This is a template for a modern development environment using VSCode for Roblox 
 
 # Installation
 
+> [!TIP]
+> You can use this via the "Use this template" button.
+
 ## Install Packages
 
 ```bash
