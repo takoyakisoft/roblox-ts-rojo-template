@@ -23,12 +23,15 @@ importers:
       '@rbxts/profileservice':
         specifier: ^1.4.2
         version: 1.4.2
+      '@rbxts/react':
+        specifier: ^17.2.3
+        version: 17.2.3
+      '@rbxts/react-roblox':
+        specifier: ^17.2.3
+        version: 17.2.3
       '@rbxts/replicaservice':
         specifier: 1.1.0-ts.2
         version: 1.1.0-ts.2
-      '@rbxts/roact':
-        specifier: ^3.0.1
-        version: 3.0.1
       '@rbxts/services':
         specifier: ^1.5.5
         version: 1.5.5
@@ -161,11 +164,17 @@ packages:
   '@rbxts/profileservice@1.4.2':
     resolution: {integrity: sha512-xpq0bTfU7ol+7bUF9S0HZnh4xyGBZRsvVIlmAkEWt81Fv0Dep4b2NXbtV0XrT05+vZBjMTGxKJk+jGx5reQmtQ==}
 
+  '@rbxts/react-roblox@17.2.3':
+    resolution: {integrity: sha512-YgS+C3tf92iM1NTK1f6R2O2G8+nbcKFnblA0mTs2Nt878OsWLgxhnhkCBZ6wYv+yeDGD9/sssKHZ6s2LzUWTrQ==}
+
+  '@rbxts/react-vendor@17.2.3':
+    resolution: {integrity: sha512-dWCiVelvTK6h920geaFH/OQ5zoWHyhyqyfH51hKx2/iVZ6OiiyNVJ5UqEIkJMG4HsJ8JnkTORizV3+MtQ41BtA==}
+
+  '@rbxts/react@17.2.3':
+    resolution: {integrity: sha512-IoOB8e2W8MxT0MKWFf0Ls0vT61ImYL6ctHQgz5+oazma6z8bqFtJjgPxOuy6jmMSuyfBe7rYp/muou0kIjZT+Q==}
+
   '@rbxts/replicaservice@1.1.0-ts.2':
     resolution: {integrity: sha512-Di3WgUJrSLobZ4CHSJF88I2j5c7uVoKOvV5+2K6xpg4PUqXikvI0V0194ab3/Vq8t5nHERCv0F6qxMHBgG92iw==}
-
-  '@rbxts/roact@3.0.1':
-    resolution: {integrity: sha512-1RVGy8PL078pXdrrYboiKftMKqB4YgYd4Sh/M3aWkhY2TKBBL+hlT1Om35cmCn8sKzdzQwzf2CbmcU49lHoNuw==}
 
   '@rbxts/services@1.5.5':
     resolution: {integrity: sha512-Hu7QH2ecefS60zpakKG3T2vgABydoOJqpSG7nXr59wFAbPk/cA+OcsntYPHUWyHAat0VFGZ5jNZLTLdiqfssvg==}
@@ -951,9 +960,18 @@ snapshots:
 
   '@rbxts/profileservice@1.4.2': {}
 
-  '@rbxts/replicaservice@1.1.0-ts.2': {}
+  '@rbxts/react-roblox@17.2.3':
+    dependencies:
+      '@rbxts/react': 17.2.3
+      '@rbxts/react-vendor': 17.2.3
 
-  '@rbxts/roact@3.0.1': {}
+  '@rbxts/react-vendor@17.2.3': {}
+
+  '@rbxts/react@17.2.3':
+    dependencies:
+      '@rbxts/react-vendor': 17.2.3
+
+  '@rbxts/replicaservice@1.1.0-ts.2': {}
 
   '@rbxts/services@1.5.5': {}
 
