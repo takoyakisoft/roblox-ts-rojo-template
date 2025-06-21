@@ -15,6 +15,7 @@ Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプ�
 - "@rbxts/profileservice"
 - "@rbxts/replicaservice"
 - "@rbxts/roact"
+- "@rbxts/cmdr"
 - "@rbxts/testez"
 
 > [!WARNING]

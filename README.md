@@ -17,6 +17,7 @@ This is a template for a modern development environment using VSCode for Roblox 
 - "@rbxts/profileservice"
 - "@rbxts/replicaservice"
 - "@rbxts/roact"
+- "@rbxts/cmdr"
 - "@rbxts/testez"
 
 > [!WARNING]
