@@ -17,9 +17,6 @@ importers:
       '@rbxts/janitor':
         specifier: 1.18.3-ts.0
         version: 1.18.3-ts.0
-      '@rbxts/knit':
-        specifier: 0.0.21-alpha.0
-        version: 0.0.21-alpha.0
       '@rbxts/profileservice':
         specifier: ^1.4.2
         version: 1.4.2
@@ -55,13 +52,13 @@ importers:
         version: 10.1.5(eslint@9.29.0)
       eslint-plugin-prettier:
         specifier: ^5.4.0
-        version: 5.5.0(eslint-config-prettier@10.1.5(eslint@9.29.0))(eslint@9.29.0)(prettier@3.5.3)
+        version: 5.5.0(eslint-config-prettier@10.1.5(eslint@9.29.0))(eslint@9.29.0)(prettier@3.6.0)
       eslint-plugin-roblox-ts:
         specifier: ^0.0.36
         version: 0.0.36(eslint@9.29.0)
       prettier:
-        specifier: ^3.5.3
-        version: 3.5.3
+        specifier: ^3.6.0
+        version: 3.6.0
       roblox-ts:
         specifier: 3.0.0
         version: 3.0.0
@@ -157,9 +154,6 @@ packages:
 
   '@rbxts/janitor@1.18.3-ts.0':
     resolution: {integrity: sha512-xr6DBJfQ+k0hbkx1pOYteYOBfinYO/otd+NnpiDaVaR78n89cusxBzKrdImNFzBs+GDVG9qnEZb6HbRZyMkz5g==}
-
-  '@rbxts/knit@0.0.21-alpha.0':
-    resolution: {integrity: sha512-NDDa/bpVQPOr4eN8kIRNP8s6Q/s1dOxJa69QPC8Bx181wecyBCPHPFbtlLaIV0ZpCQ8rrzjnB2bU6dgvYumEGQ==}
 
   '@rbxts/profileservice@1.4.2':
     resolution: {integrity: sha512-xpq0bTfU7ol+7bUF9S0HZnh4xyGBZRsvVIlmAkEWt81Fv0Dep4b2NXbtV0XrT05+vZBjMTGxKJk+jGx5reQmtQ==}
@@ -716,8 +710,8 @@ packages:
     resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
     engines: {node: '>=6.0.0'}
 
-  prettier@3.5.3:
-    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
+  prettier@3.6.0:
+    resolution: {integrity: sha512-ujSB9uXHJKzM/2GBuE0hBOUgC77CN3Bnpqa+g80bkv3T3A93wL/xlzDATHhnhkzifz/UE2SNOvmbTz5hSkDlHw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -955,8 +949,6 @@ snapshots:
   '@rbxts/compiler-types@2.3.0-types.2': {}
 
   '@rbxts/janitor@1.18.3-ts.0': {}
-
-  '@rbxts/knit@0.0.21-alpha.0': {}
 
   '@rbxts/profileservice@1.4.2': {}
 
@@ -1253,10 +1245,10 @@ snapshots:
     dependencies:
       eslint: 9.29.0
 
-  eslint-plugin-prettier@5.5.0(eslint-config-prettier@10.1.5(eslint@9.29.0))(eslint@9.29.0)(prettier@3.5.3):
+  eslint-plugin-prettier@5.5.0(eslint-config-prettier@10.1.5(eslint@9.29.0))(eslint@9.29.0)(prettier@3.6.0):
     dependencies:
       eslint: 9.29.0
-      prettier: 3.5.3
+      prettier: 3.6.0
       prettier-linter-helpers: 1.0.0
       synckit: 0.11.8
     optionalDependencies:
@@ -1553,7 +1545,7 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier@3.5.3: {}
+  prettier@3.6.0: {}
 
   punycode@2.3.1: {}
 
