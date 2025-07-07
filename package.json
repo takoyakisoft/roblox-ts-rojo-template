@@ -29,7 +29,7 @@
 		"@rbxts/replicaservice": "1.1.0-ts.2",
 		"@rbxts/services": "^1.5.5",
 		"@rbxts/testez": "0.4.2-ts.0",
-		"@rbxts/types": "^1.0.860",
+		"@rbxts/types": "^1.0.861",
 		"@typescript-eslint/eslint-plugin": "^8.34.1",
 		"@typescript-eslint/parser": "^8.34.1",
 		"eslint": "^9.29.0",
