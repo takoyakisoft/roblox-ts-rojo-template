@@ -26,12 +26,11 @@ jobs:
             # Compile TypeScript to Lua (produces /out)
             - run: pnpm run build
 
-            # Install Rojo and run-in-roblox
-            - name: Install Aftman Tools
-              uses: ok-nick/setup-aftman@v0.4.2
+            # Install tools via Rokit
+            - uses: roblox-ts/setup-rokit@v0.1.2
 
             # Build the Roblox place file
             - run: rojo build -o test.rbxl
 
-            # Run the tests in a headless Roblox Studio instance
-            - run: run-in-roblox --place test.rbxl --script tests/runner.server.luau
+            # Run the tests with lune
+            - run: lune run tests/run_tests.luau
