@@ -106,8 +106,9 @@ local INSTANCE_PROPERTIES = {
 local function createWaitForChildPolyfill()
 	return function(parent, childName, timeout)
 		-- Argument Validation
-		if typeof(parent) ~= "Instance" then
-			error("WaitForChild: parent must be an Instance", 2)
+		-- Relaxed check for mock environment
+		if typeof(parent) ~= "Instance" and type(parent) ~= "table" and type(parent) ~= "userdata" then
+			error("WaitForChild: parent must be an Instance, table, or userdata", 2)
 		end
 
 		if type(childName) ~= "string" then
@@ -425,8 +426,9 @@ local function outputMocksToFile()
 -- WaitForChild Polyfill Implementation
 local function createWaitForChildPolyfill()
     return function(parent, childName, timeout)
-        if typeof(parent) ~= "Instance" then
-            error("WaitForChild: parent must be an Instance", 2)
+        -- Relaxed check for mock environment
+        if typeof(parent) ~= "Instance" and type(parent) ~= "table" and type(parent) ~= "userdata" then
+            error("WaitForChild: parent must be an Instance, table, or userdata", 2)
         end
 
         if type(childName) ~= "string" then
@@ -441,20 +443,27 @@ local function createWaitForChildPolyfill()
         local startTime = tick()
         local timeoutSeconds = timeout or 30
         local foundChild = nil
-        local connection = parent.ChildAdded:Connect(function(child)
+        local connection
+        connection = parent.ChildAdded:Connect(function(child)
             if child.Name == childName then
                 foundChild = child
-                connection:Disconnect()
+                if connection then
+                    connection:Disconnect()
+                    connection = nil
+                end
             end
         end)
 
         while not foundChild do
             if timeoutSeconds > 0 and (tick() - startTime) >= timeoutSeconds then
-                connection:Disconnect()
+                if connection then
+                    connection:Disconnect()
+                    connection = nil
+                end
                 return nil
             end
 
-            wait(0.1)
+            task.wait(0.1)
             local checkChild = parent:FindFirstChild(childName)
             if checkChild then
                 foundChild = checkChild
