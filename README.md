@@ -67,3 +67,16 @@ pnpm run watch
 "Rojo" ribbon
 
 "Connect" button
+
+# Testing
+
+This project uses [TestEZ](https://github.com/Roblox/testez) and [Lune](https://github.com/lune-org/lune) for automated testing.
+
+> [!NOTE]
+> Tests in the CI environment run using AI-generated Roblox API mocks via Lune. This setup is primarily designed for verifying basic logic correctness outside of the Roblox Studio environment.
+
+## Running Tests
+
+```bash
+pnpm run test
+```

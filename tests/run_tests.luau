@@ -4,64 +4,57 @@ local luau = require("@lune/luau")
 local process = require("@lune/process")
 local task = require("@lune/task")
 
--- 0. Inject Roblox Globals into _G for general usage
-_G.CFrame = roblox.CFrame
-_G.Vector3 = roblox.Vector3
-_G.Vector2 = roblox.Vector2
-_G.Color3 = roblox.Color3
-_G.UDim2 = roblox.UDim2
-_G.UDim = roblox.UDim
-_G.Instance = roblox.Instance
-_G.Enum = roblox.Enum
-_G.task = task
-_G.wait = task.wait
-_G.tick = os.clock
+-- 0. Define Base Globals
+local baseGlobals = {
+	CFrame = roblox.CFrame,
+	Vector3 = roblox.Vector3,
+	Vector2 = roblox.Vector2,
+	Color3 = roblox.Color3,
+	UDim2 = roblox.UDim2,
+	UDim = roblox.UDim,
+	Instance = roblox.Instance,
+	Enum = roblox.Enum,
+	task = task,
+	wait = task.wait,
+	tick = os.clock,
+	os = os,
+	string = string,
+	table = table,
+	math = math,
+	typeof = typeof,
+	type = type,
+	print = print,
+	warn = warn,
+	error = error,
+	unpack = table.unpack or unpack,
+	setmetatable = setmetatable,
+	getmetatable = getmetatable,
+	newproxy = newproxy,
+	pcall = pcall,
+	xpcall = xpcall,
+	ipairs = ipairs,
+	pairs = pairs,
+	next = next,
+	tostring = tostring,
+	tonumber = tonumber,
+}
 
--- 1. Load the mock system MANUALLY to guarantee environment injection
--- Standard 'require' might not propagate _G or env changes as expected directly to top-level code in the module
+-- 1. Load DataModel
+local file = lune.readFile("test.rbxl")
+local gameReal = roblox.deserializePlace(file)
+
+-- 2. Load the mock system MANUALLY to guarantee environment injection
 local mocksSource = lune.readFile("tests/roblox_mocks.luau")
-local mocksEnv = setmetatable({}, { __index = _G })
-
--- Explicitly inject types into the mocks environment
-mocksEnv.CFrame = roblox.CFrame
-mocksEnv.Vector3 = roblox.Vector3
-mocksEnv.Vector2 = roblox.Vector2
-mocksEnv.Color3 = roblox.Color3
-mocksEnv.UDim2 = roblox.UDim2
-mocksEnv.UDim = roblox.UDim
-mocksEnv.Instance = roblox.Instance
-mocksEnv.Enum = roblox.Enum
-mocksEnv.task = task
-mocksEnv.wait = task.wait
-mocksEnv.tick = os.clock
-mocksEnv.os = os
-mocksEnv.string = string
-mocksEnv.table = table
-mocksEnv.math = math
-mocksEnv.typeof = typeof
-mocksEnv.type = type
-mocksEnv.print = print
-mocksEnv.warn = warn
-mocksEnv.error = error
-mocksEnv.unpack = table.unpack or unpack
-mocksEnv.setmetatable = setmetatable
-mocksEnv.getmetatable = getmetatable
-mocksEnv.newproxy = newproxy
-mocksEnv.pcall = pcall
-mocksEnv.xpcall = xpcall
-mocksEnv.ipairs = ipairs
-mocksEnv.pairs = pairs
-mocksEnv.next = next
-mocksEnv.tostring = tostring
-mocksEnv.tonumber = tonumber
+local mocksEnv = {}
+for k, v in pairs(baseGlobals) do
+	mocksEnv[k] = v
+end
+-- Inject real HttpService for JSON methods in mocks
+mocksEnv.HttpService = gameReal:GetService("HttpService")
 
 local mocksBytecode = luau.compile(mocksSource)
 local mocksFn = luau.load(mocksBytecode, { environment = mocksEnv })
 local mocks = mocksFn()
-
--- 2. Load DataModel
-local file = lune.readFile("test.rbxl")
-local gameReal = roblox.deserializePlace(file)
 
 -- 3. Create a more intelligent Proxy
 local function smartWrap(instance)
@@ -80,10 +73,24 @@ local function smartWrap(instance)
 		-- Intercept GetService to prefer real storage services over empty mocks
 		if key == "GetService" and instance:IsA("DataModel") then
 			return function(_, serviceName)
-				if mocks.serviceMocks[serviceName] then
+				-- Services that MUST be real to preserve hierarchy/content
+				local storageServices = {
+					ReplicatedStorage = true,
+					ServerScriptService = true,
+					ServerStorage = true,
+					Workspace = true,
+					StarterGui = true,
+					StarterPack = true,
+					Lighting = true,
+					SoundService = true,
+				}
+
+				if not storageServices[serviceName] and mocks.serviceMocks[serviceName] then
 					return mocks.serviceMocks[serviceName]
 				end
-				return smartWrap(instance:GetService(serviceName))
+
+				local realService = instance:GetService(serviceName)
+				return smartWrap(realService)
 			end
 		end
 
@@ -118,15 +125,21 @@ local function smartWrap(instance)
 						end
 					end
 				end
-				local success, results = pcall(function()
-					return { val(instance, table.unpack(args)) }
-				end)
+				local results = { pcall(function()
+					return val(instance, table.unpack(args))
+				end) }
+				local success = table.remove(results, 1)
 				if not success then
+					local err = tostring(results[1])
 					-- Fallback for common missing methods in Lune
 					if key == "IsA" then
-						return false
+						local className = "Instance"
+						pcall(function()
+							className = instance.ClassName
+						end)
+						return className == args[1]
 					end
-					error(tostring(results)) -- results is error message string if failed
+					error(`Error calling method '{key}' on {tostring(instance)}: {err}`, 2)
 				end
 				for i, r in ipairs(results) do
 					results[i] = smartWrap(r)
@@ -186,7 +199,7 @@ local function requireInstance(moduleScript)
 		return cached
 	end
 
-	local env = setmetatable({}, { __index = _G })
+	local env = setmetatable({}, { __index = baseGlobals })
 	env.game = GameProxy
 	env.workspace = GameProxy.Workspace
 	env.script = smartWrap(moduleScript)

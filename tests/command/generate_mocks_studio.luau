@@ -130,7 +130,7 @@ local function createWaitForChildPolyfill()
 		end
 
 		-- Timeout setup
-		local startTime = tick()
+		local startTime = os.clock()
 		local timeoutSeconds = timeout or 30
 
 		-- Listen for ChildAdded (if available)
@@ -152,8 +152,11 @@ local function createWaitForChildPolyfill()
 		-- Wait until child is found
 		while not foundChild do
 			-- Timeout check
-			if timeoutSeconds > 0 and (tick() - startTime) >= timeoutSeconds then
-				connection:Disconnect()
+			if timeoutSeconds > 0 and (os.clock() - startTime) >= timeoutSeconds then
+				if connection then
+					connection:Disconnect()
+					connection = nil
+				end
 				return nil
 			end
 
@@ -184,6 +187,10 @@ local function generateServiceMock(serviceName)
 	for _, method in ipairs(INSTANCE_METHODS) do
 		if method == "WaitForChild" then
 			mock[method] = createWaitForChildPolyfill()
+		elseif method == "IsA" then
+			mock[method] = function(_, className)
+				return mock.ClassName == className
+			end
 		else
 			mock[method] = function() end
 		end
@@ -308,10 +315,10 @@ local function generateServiceMock(serviceName)
 			return mock.GetDataStore()
 		end
 	elseif serviceName == "HttpService" then
-		mock.JSONEncode = function(obj)
+		mock.JSONEncode = function(_, obj)
 			return HttpService:JSONEncode(obj)
 		end
-		mock.JSONDecode = function(str)
+		mock.JSONDecode = function(_, str)
 			return HttpService:JSONDecode(str)
 		end
 		mock.GetAsync = function()
@@ -320,6 +327,19 @@ local function generateServiceMock(serviceName)
 		mock.PostAsync = function()
 			return ""
 		end
+	elseif serviceName == "MarketplaceService" then
+		mock.GetProductInfo = function(_, assetId)
+			return {
+				Name = "Mock Asset",
+				Description = "Mock Description",
+				Creator = { Name = "Mock Creator" },
+				PriceInRobux = 0,
+			}
+		end
+		mock.PlayerOwnsAsset = function()
+			return true
+		end
+		mock.PromptPurchase = function() end
 	elseif serviceName == "Workspace" then
 		mock.CurrentCamera = {
 			CFrame = CFrame.new(),
@@ -465,7 +485,7 @@ local function createWaitForChildPolyfill()
             return child
         end
 
-        local startTime = tick()
+        local startTime = os.clock()
         local timeoutSeconds = timeout or 30
         local foundChild = nil
         local connection
@@ -483,7 +503,7 @@ local function createWaitForChildPolyfill()
         end
 
         while not foundChild do
-            if timeoutSeconds > 0 and (tick() - startTime) >= timeoutSeconds then
+            if timeoutSeconds > 0 and (os.clock() - startTime) >= timeoutSeconds then
                 if connection then
                     connection:Disconnect()
                     connection = nil
@@ -526,6 +546,8 @@ local serviceMocks = {}]]
 				local valStr
 				if k == "WaitForChild" and type(v) == "function" then
 					valStr = "createWaitForChildPolyfill()"
+				elseif k == "IsA" and type(v) == "function" then
+					valStr = "function(self, className) return self.ClassName == className end"
 				else
 					valStr = serializeValue(v, indent .. "  ")
 				end
@@ -544,6 +566,21 @@ local serviceMocks = {}]]
 			local serialized
 			if key == "WaitForChild" and type(value) == "function" then
 				serialized = "createWaitForChildPolyfill()"
+			elseif (key == "IsA" or key:find("WhichIsA$")) and type(value) == "function" then
+				serialized = "function(self, className) return self.ClassName == className end"
+			elseif key == "GetProductInfo" and serviceName == "MarketplaceService" then
+				serialized = [[function(self, assetId)
+    return {
+      Name = "Mock Asset",
+      Description = "Mock Description",
+      Creator = { Name = "Mock Creator" },
+      PriceInRobux = 0,
+    }
+  end]]
+			elseif key == "JSONEncode" and serviceName == "HttpService" then
+				serialized = "function(self, obj) return HttpService:JSONEncode(obj) end"
+			elseif key == "JSONDecode" and serviceName == "HttpService" then
+				serialized = "function(self, str) return HttpService:JSONDecode(str) end"
 			else
 				serialized = serializeValue(value, "  ")
 			end

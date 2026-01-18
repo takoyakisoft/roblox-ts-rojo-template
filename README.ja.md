@@ -67,3 +67,16 @@ pnpm run watch
 「Rojo」リボン
 
 「Connect」ボタン
+
+# テスト
+
+このプロジェクトでは、[TestEZ](https://github.com/Roblox/testez) と [Lune](https://github.com/lune-org/lune) を使用した自動テストを導入しています。
+
+> [!NOTE]
+> CI環境でのテストは、LuneとAIによって生成されたRoblox APIモックを使用して実行されます。これは主に、Roblox Studio外での基本的なロジックの動作確認を目的としたものです。
+
+## テストの実行
+
+```bash
+pnpm run test
+```

@@ -1,6 +1,6 @@
 -- Auto-generated Roblox API mocks for Studio
 -- Includes WaitForChild polyfill
--- Generated on: 2026-01-18 20:51:42
+-- Generated on: 2026-01-18 21:04:45
 -- WaitForChild Polyfill Implementation
 local function createWaitForChildPolyfill()
 	return function(parent, childName, timeout)
@@ -18,7 +18,7 @@ local function createWaitForChildPolyfill()
 			return child
 		end
 
-		local startTime = tick()
+		local startTime = os.clock()
 		local timeoutSeconds = timeout or 30
 		local foundChild = nil
 		local connection
@@ -36,7 +36,7 @@ local function createWaitForChildPolyfill()
 		end
 
 		while not foundChild do
-			if timeoutSeconds > 0 and (tick() - startTime) >= timeoutSeconds then
+			if timeoutSeconds > 0 and (os.clock() - startTime) >= timeoutSeconds then
 				if connection then
 					connection:Disconnect()
 					connection = nil
@@ -90,17 +90,23 @@ serviceMocks.BadgeService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "BadgeService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "BadgeService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.CoreGui = {
@@ -132,17 +138,23 @@ serviceMocks.CoreGui = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "CoreGui",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "CoreGui",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.GroupService = {
@@ -174,17 +186,23 @@ serviceMocks.GroupService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "GroupService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "GroupService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.ReplicatedFirst = {
@@ -216,17 +234,23 @@ serviceMocks.ReplicatedFirst = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "ReplicatedFirst",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "ReplicatedFirst",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.StarterPack = {
@@ -258,17 +282,23 @@ serviceMocks.StarterPack = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "StarterPack",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "StarterPack",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.Chat = {
@@ -300,17 +330,23 @@ serviceMocks.Chat = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "Chat",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "Chat",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.ServerStorage = {
@@ -342,17 +378,23 @@ serviceMocks.ServerStorage = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "ServerStorage",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "ServerStorage",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.Workspace = {
@@ -392,17 +434,23 @@ serviceMocks.Workspace = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "Workspace",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "Workspace",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.StarterGui = {
@@ -434,17 +482,23 @@ serviceMocks.StarterGui = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "StarterGui",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "StarterGui",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.TeleportService = {
@@ -476,17 +530,23 @@ serviceMocks.TeleportService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "TeleportService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "TeleportService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.Players = {
@@ -530,17 +590,23 @@ serviceMocks.Players = {
 	},
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "Players",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "Players",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.AssetService = {
@@ -572,17 +638,23 @@ serviceMocks.AssetService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "AssetService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "AssetService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.PathfindingService = {
@@ -614,17 +686,23 @@ serviceMocks.PathfindingService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "PathfindingService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "PathfindingService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.LeaderboardService = {
@@ -656,17 +734,23 @@ serviceMocks.LeaderboardService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "LeaderboardService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "LeaderboardService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.RunService = {
@@ -685,7 +769,9 @@ serviceMocks.RunService = {
 	WaitForChild = createWaitForChildPolyfill(),
 	GetPropertyChangedSignal = function(...) end,
 	GetAttributeChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Stepped = {
 		Connect = function(...) end,
 		Wait = function(...) end,
@@ -714,7 +800,9 @@ serviceMocks.RunService = {
 	},
 	IsRunMode = function(...) end,
 	IsRunning = function(...) end,
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	RobloxLocked = false,
 	FindFirstChildOfClass = function(...) end,
 	IsAncestorOf = function(...) end,
@@ -725,7 +813,9 @@ serviceMocks.RunService = {
 		Wait = function(...) end,
 		Connect = function(...) end,
 	},
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "RunService",
 }
 serviceMocks.VoiceChatService = {
@@ -757,17 +847,23 @@ serviceMocks.VoiceChatService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "VoiceChatService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "VoiceChatService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.TestService = {
@@ -802,17 +898,23 @@ serviceMocks.TestService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "TestService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "TestService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.ProximityPromptService = {
@@ -844,17 +946,23 @@ serviceMocks.ProximityPromptService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "ProximityPromptService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "ProximityPromptService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.Lighting = {
@@ -886,17 +994,23 @@ serviceMocks.Lighting = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "Lighting",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "Lighting",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.ServerScriptService = {
@@ -928,17 +1042,23 @@ serviceMocks.ServerScriptService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "ServerScriptService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "ServerScriptService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.AvatarEditorService = {
@@ -970,17 +1090,23 @@ serviceMocks.AvatarEditorService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "AvatarEditorService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "AvatarEditorService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.NetworkService = {
@@ -1012,25 +1138,37 @@ serviceMocks.NetworkService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "NetworkService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "NetworkService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.MarketplaceService = {
+	PromptPurchase = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	FindFirstChild = function(...) end,
 	DescendantAdded = {
 		Wait = function(...) end,
 		Connect = function(...) end,
 	},
+	Name = "MarketplaceService",
 	DescendantRemoving = {
 		Wait = function(...) end,
 		Connect = function(...) end,
@@ -1038,10 +1176,7 @@ serviceMocks.MarketplaceService = {
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
-	ChildRemoved = {
-		Wait = function(...) end,
-		Connect = function(...) end,
-	},
+	PlayerOwnsAsset = function(...) end,
 	ChildAdded = {
 		Wait = function(...) end,
 		Connect = function(...) end,
@@ -1054,17 +1189,30 @@ serviceMocks.MarketplaceService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
-	Name = "MarketplaceService",
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
+	GetProductInfo = function(self, assetId)
+		return {
+			Name = "Mock Asset",
+			Description = "Mock Description",
+			Creator = { Name = "Mock Creator" },
+			PriceInRobux = 0,
+		}
+	end,
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "MarketplaceService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.StudioService = {
@@ -1096,17 +1244,23 @@ serviceMocks.StudioService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "StudioService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "StudioService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.MessagingService = {
@@ -1138,17 +1292,23 @@ serviceMocks.MessagingService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "MessagingService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "MessagingService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.SocialService = {
@@ -1180,17 +1340,23 @@ serviceMocks.SocialService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "SocialService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "SocialService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.UserInputService = {
@@ -1222,21 +1388,29 @@ serviceMocks.UserInputService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "UserInputService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "UserInputService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.HttpService = {
-	JSONDecode = function(...) end,
+	JSONDecode = function(self, str)
+		return HttpService:JSONDecode(str)
+	end,
 	GetAsync = function(...) end,
 	PostAsync = function(...) end,
 	FindFirstChild = function(...) end,
@@ -1244,7 +1418,9 @@ serviceMocks.HttpService = {
 		Wait = function(...) end,
 		Connect = function(...) end,
 	},
-	JSONEncode = function(...) end,
+	JSONEncode = function(self, obj)
+		return HttpService:JSONEncode(obj)
+	end,
 	DescendantRemoving = {
 		Wait = function(...) end,
 		Connect = function(...) end,
@@ -1268,17 +1444,23 @@ serviceMocks.HttpService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "HttpService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "HttpService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.CollectionService = {
@@ -1310,17 +1492,23 @@ serviceMocks.CollectionService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "CollectionService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "CollectionService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.StarterPlayer = {
@@ -1352,17 +1540,23 @@ serviceMocks.StarterPlayer = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "StarterPlayer",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "StarterPlayer",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.GuiService = {
@@ -1394,17 +1588,23 @@ serviceMocks.GuiService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "GuiService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "GuiService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.GamePassService = {
@@ -1436,17 +1636,23 @@ serviceMocks.GamePassService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "GamePassService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "GamePassService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.LocalizationService = {
@@ -1478,17 +1684,23 @@ serviceMocks.LocalizationService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "LocalizationService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "LocalizationService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.SoundService = {
@@ -1520,17 +1732,23 @@ serviceMocks.SoundService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "SoundService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "SoundService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.InsertService = {
@@ -1562,17 +1780,23 @@ serviceMocks.InsertService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "InsertService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "InsertService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.MemoryStoreService = {
@@ -1604,17 +1828,23 @@ serviceMocks.MemoryStoreService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "MemoryStoreService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "MemoryStoreService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.DataStoreService = {
@@ -1648,17 +1878,23 @@ serviceMocks.DataStoreService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "DataStoreService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "DataStoreService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.FriendService = {
@@ -1690,17 +1926,23 @@ serviceMocks.FriendService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "FriendService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "FriendService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.Teams = {
@@ -1732,17 +1974,23 @@ serviceMocks.Teams = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "Teams",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "Teams",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.ContextActionService = {
@@ -1774,17 +2022,23 @@ serviceMocks.ContextActionService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "ContextActionService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "ContextActionService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.PointsService = {
@@ -1816,17 +2070,23 @@ serviceMocks.PointsService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "PointsService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "PointsService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.TweenService = {
@@ -1858,17 +2118,23 @@ serviceMocks.TweenService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "TweenService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "TweenService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.PhysicsService = {
@@ -1900,17 +2166,23 @@ serviceMocks.PhysicsService = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "PhysicsService",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "PhysicsService",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.ReplicatedStorage = {
@@ -1942,17 +2214,23 @@ serviceMocks.ReplicatedStorage = {
 	Archivable = true,
 	GetFullName = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
+	FindFirstChildWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	Name = "ReplicatedStorage",
 	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
+	FindFirstAncestorWhichIsA = function(self, className)
+		return self.ClassName == className
+	end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
 	ClassName = "ReplicatedStorage",
 	FindFirstAncestor = function(...) end,
 	GetAttributes = function(...) end,
-	IsA = function(...) end,
+	IsA = function(self, className)
+		return self.ClassName == className
+	end,
 	FindFirstChildOfClass = function(...) end,
 }
 local REAL_INSTANCE = newproxy()
