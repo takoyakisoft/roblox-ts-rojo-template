@@ -11,7 +11,7 @@
 		"format": "prettier --write src",
 		"format:check": "prettier --check src",
 		"typecheck": "tsc --noEmit",
-		"test": "pnpm run build && rojo build -o test.rbxl && run-in-roblox --place test.rbxl --script test/runner.server.luau",
+		"test": "pnpm run build && rojo build -o test.rbxl && run-in-roblox --place test.rbxl --script tests/runner.server.luau",
 		"check": "pnpm run typecheck && pnpm run lint && pnpm run format:check",
 		"fix": "pnpm run lint:fix && pnpm run format"
 	},

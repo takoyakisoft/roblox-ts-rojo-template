@@ -34,4 +34,4 @@ jobs:
             - run: rojo build -o test.rbxl
 
             # Run the tests in a headless Roblox Studio instance
-            - run: run-in-roblox --place test.rbxl --script test/runner.server.luau
+            - run: run-in-roblox --place test.rbxl --script tests/runner.server.luau
