@@ -1,20 +1,45 @@
 local lune = require("@lune/fs")
 local roblox = require("@lune/roblox")
 local luau = require("@lune/luau")
-local stdio = require("@lune/stdio")
 local process = require("@lune/process")
 local task = require("@lune/task")
 
--- 1. Load DataModel
+-- 0. Inject Roblox Globals into _G for general usage
+_G.CFrame = roblox.CFrame
+_G.Vector3 = roblox.Vector3
+_G.Vector2 = roblox.Vector2
+_G.Color3 = roblox.Color3
+_G.UDim2 = roblox.UDim2
+_G.UDim = roblox.UDim
+_G.Instance = roblox.Instance
+_G.Enum = roblox.Enum
+_G.task = task
+_G.wait = task.wait
+_G.tick = os.clock
+
+-- 1. Load the mock system MANUALLY to guarantee environment injection
+-- Standard 'require' might not propagate _G or env changes as expected directly to top-level code in the module
+local mocksSource = lune.readFile("tests/roblox_mocks.luau")
+local mocksEnv = setmetatable({}, { __index = _G })
+
+-- Explicitly inject types into the mocks environment
+mocksEnv.CFrame = roblox.CFrame
+mocksEnv.Vector3 = roblox.Vector3
+mocksEnv.Instance = roblox.Instance
+mocksEnv.Enum = roblox.Enum
+mocksEnv.task = task
+mocksEnv.wait = task.wait
+
+local mocksBytecode = luau.compile(mocksSource)
+local mocksFn = luau.load(mocksBytecode, { environment = mocksEnv })
+local mocks = mocksFn()
+
+-- 2. Load DataModel
 local file = lune.readFile("test.rbxl")
 local gameReal = roblox.deserializePlace(file)
 
--- 2. Polyfills & Mocks (Lune -> Roblox Compatibility)
-
--- Key to unwrap proxies
-local REAL_INSTANCE = newproxy()
-
-local function wrapInstance(instance)
+-- 3. Create a more intelligent Proxy
+local function smartWrap(instance)
 	if typeof(instance) ~= "Instance" then
 		return instance
 	end
@@ -23,98 +48,85 @@ local function wrapInstance(instance)
 	local meta = getmetatable(proxy)
 
 	meta.__index = function(_, key)
-		if key == REAL_INSTANCE then
+		if key == mocks.REAL_INSTANCE then
 			return instance
 		end
 
-		if key == "WaitForChild" then
-			return function(_, childName)
-				local child = instance:FindFirstChild(childName)
-				return wrapInstance(child)
-			end
-		elseif key == "GetService" and instance == gameReal then
+		-- Intercept GetService to prefer real storage services over empty mocks
+		if key == "GetService" and instance:IsA("DataModel") then
 			return function(_, serviceName)
-				if serviceName == "RunService" then
-					return {
-						IsStudio = function()
-							return false
-						end,
-						IsRunning = function()
-							return true
-						end,
-						IsRunMode = function()
-							return true
-						end,
-						IsClient = function()
-							return false
-						end,
-						IsServer = function()
-							return true
-						end,
-						Heartbeat = {
-							Wait = function()
-								return task.wait()
-							end,
-							Connect = function()
-								return { Disconnect = function() end }
-							end,
-						},
-						Stepped = {
-							Wait = function()
-								return task.wait()
-							end,
-							Connect = function()
-								return { Disconnect = function() end }
-							end,
-						},
-					}
+				if serviceName == "RunService" or serviceName == "TestService" then
+					return mocks.serviceMocks[serviceName]
 				end
-				if serviceName == "TestService" then
-					return {
-						Error = function(_, message)
-							stdio.write(
-								stdio.color("red")
-									.. "[TestService Error] "
-									.. tostring(message)
-									.. stdio.color("reset")
-									.. "\n"
-							)
-						end,
-						Message = function(_, message)
-							print("[TestService Message] " .. tostring(message))
-						end,
-						Checkpoint = function() end,
-					}
-				end
-				return wrapInstance(gameReal:GetService(serviceName))
+				return smartWrap(instance:GetService(serviceName))
 			end
 		end
 
+		-- Polyfill for methods missing in Lune's Instance
+		if key == "WaitForChild" then
+			return function(_, name)
+				return smartWrap(instance:FindFirstChild(name))
+			end
+		elseif key == "GetPropertyChangedSignal" then
+			return function()
+				return {
+					Connect = function()
+						return { Disconnect = function() end }
+					end,
+				}
+			end
+		end
+
+		-- Forward to real instance properties/methods
 		local val = instance[key]
 		if typeof(val) == "function" then
 			return function(_, ...)
 				local args = { ... }
-				-- Extract real instances from proxies
 				for i, v in ipairs(args) do
 					if typeof(v) == "userdata" then
 						local m = getmetatable(v)
 						if m and m.__index then
-							local real = v[REAL_INSTANCE]
+							local real = v[mocks.REAL_INSTANCE]
 							if real then
 								args[i] = real
 							end
 						end
 					end
 				end
-				local results = { val(instance, unpack(args)) }
-				-- Wrap results
-				for i, v in ipairs(results) do
-					results[i] = wrapInstance(v)
+				local success, results = pcall(function()
+					return { val(instance, table.unpack(args)) }
+				end)
+				if not success then
+					-- Fallback for common missing methods in Lune
+					if key == "IsA" then
+						return false
+					end
+					error(results[1]) -- results is error message string if failed
 				end
-				return unpack(results)
+				for i, r in ipairs(results) do
+					results[i] = smartWrap(r)
+				end
+				return table.unpack(results)
 			end
 		end
-		return wrapInstance(val)
+
+		-- Ensure traversal methods also return wrapped instances
+		if key == "FindFirstChild" or key == "FindFirstChildOfClass" then
+			return function(_, name)
+				local child = instance[key](instance, name)
+				return smartWrap(child)
+			end
+		elseif key == "GetChildren" or key == "GetDescendants" then
+			return function()
+				local list = instance[key](instance)
+				for i, v in ipairs(list) do
+					list[i] = smartWrap(v)
+				end
+				return list
+			end
+		end
+
+		return smartWrap(val)
 	end
 
 	meta.__tostring = function()
@@ -123,33 +135,13 @@ local function wrapInstance(instance)
 	return proxy
 end
 
-local GameProxy = wrapInstance(gameReal)
+local GameProxy = smartWrap(gameReal)
 
--- Mock Enum
-local MockEnum = setmetatable({}, {
-	__index = function(self, serviceName)
-		local serviceEnums = setmetatable({}, {
-			__index = function(self2, itemName)
-				local item = newproxy(true)
-				getmetatable(item).__tostring = function()
-					return "Enum." .. serviceName .. "." .. itemName
-				end
-				rawset(self2, itemName, item)
-				return item
-			end,
-		})
-		rawset(self, serviceName, serviceEnums)
-		return serviceEnums
-	end,
-})
-
--- 3. Module Loader
+-- 4. Module Loader
 local loadedModules = {}
-
 local function requireInstance(moduleScript)
-	-- Unwrap proxy if necessary
 	if typeof(moduleScript) == "userdata" then
-		local real = moduleScript[REAL_INSTANCE]
+		local real = moduleScript[mocks.REAL_INSTANCE]
 		if real then
 			moduleScript = real
 		end
@@ -163,59 +155,37 @@ local function requireInstance(moduleScript)
 		return loadedModules[moduleScript]
 	end
 
-	-- Prepare Environment
 	local env = setmetatable({}, { __index = _G })
-
-	-- Inject Roblox Globals
-	env.script = wrapInstance(moduleScript)
 	env.game = GameProxy
 	env.workspace = GameProxy.Workspace
-	env.Enum = MockEnum
+	env.script = smartWrap(moduleScript)
+	env.Enum = mocks.MockEnum
 	env.task = task
-	env.wait = task.wait
-	env.spawn = task.spawn
-	env.delay = task.delay
 	env.tick = os.clock
-	env.warn = function(...)
-		stdio.write(stdio.color("yellow") .. table.concat({ ... }, " ") .. stdio.color("reset") .. "\n")
-	end
-
 	env.require = function(target)
 		local realTarget = target
 		if typeof(target) == "userdata" then
-			local real = target[REAL_INSTANCE]
+			local real = target[mocks.REAL_INSTANCE]
 			if real then
 				realTarget = real
 			end
 		end
-
 		if typeof(realTarget) == "Instance" and realTarget:IsA("ModuleScript") then
 			return requireInstance(realTarget)
 		end
-
-		-- Fallback to standard require (expects string)
 		return require(target)
 	end
 
-	-- Compile and run
-	local success, result = pcall(function()
-		local bytecode = luau.compile(moduleScript.Source)
-		local fn = luau.load(bytecode, { environment = env })
-		return fn()
-	end)
-
-	if not success then
-		error("Failed to load module " .. moduleScript:GetFullName() .. ": " .. tostring(result))
-	end
+	local bytecode = luau.compile(moduleScript.Source)
+	local fn = luau.load(bytecode, { environment = env })
+	local result = fn()
 
 	loadedModules[moduleScript] = result
 	return result
 end
 
--- 4. Execution
+-- 5. Execution
 local ReplicatedStorage = gameReal:GetService("ReplicatedStorage")
-local ServerScriptService = gameReal:GetService("ServerScriptService")
-
 local testezFolder = ReplicatedStorage.rbxts_include.node_modules["@rbxts"].testez
 local TestEZModule = testezFolder:FindFirstChild("init") or testezFolder:FindFirstChild("src")
 
@@ -225,12 +195,15 @@ end
 
 local TestEZ = requireInstance(TestEZModule)
 
+_G.game = GameProxy
+_G.workspace = GameProxy.Workspace
+_G.Enum = mocks.MockEnum
+
 local results = TestEZ.TestBootstrap:run({
 	GameProxy.ServerScriptService.TS,
 	GameProxy.ReplicatedStorage.TS,
 })
 
 if results.failureCount > 0 or #results.errors > 0 then
-	print("Tests failed with " .. results.failureCount .. " failures")
 	process.exit(1)
 end
