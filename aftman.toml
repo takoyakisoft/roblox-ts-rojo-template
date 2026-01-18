@@ -1,3 +1,3 @@
 [tools]
-rojo = "rojo-rbx/rojo@7.4.1"
-run-in-roblox = "rojo-rbx/run-in-roblox@0.4.0"
+rojo = "rojo-rbx/rojo@7.6.1"
+run-in-roblox = "rojo-rbx/run-in-roblox@0.3.0"
