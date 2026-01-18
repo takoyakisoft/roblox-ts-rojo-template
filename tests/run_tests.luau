@@ -12,7 +12,13 @@ local loadedModules = {}
 -- Custom require function to load ModuleScripts from the game data model
 local function requireInstance(moduleScript)
 	if typeof(moduleScript) ~= "Instance" or not moduleScript:IsA("ModuleScript") then
-		error("Attempted to require a non-ModuleScript: " .. tostring(moduleScript))
+		error(
+			"Attempted to require a non-ModuleScript: "
+				.. tostring(moduleScript)
+				.. " ("
+				.. (typeof(moduleScript) == "Instance" and moduleScript.ClassName or typeof(moduleScript))
+				.. ")"
+		)
 	end
 
 	if loadedModules[moduleScript] then
@@ -45,46 +51,39 @@ local function requireInstance(moduleScript)
 end
 
 -- Setup global shared environment if needed by TestEZ or tests
--- _G.game = game -- Uncomment if global game access is needed (unlikely for pure luau tests)
+-- _G.game = game
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 
 -- Locate TestEZ in the compiled node_modules
--- With Rojo, 'node_modules/@rbxts/testez' is a Folder.
--- 'src' inside it is also a Folder (as it lacks init.lua, wtf?).
--- Wait, Step 389 output does NOT show init.lua in src!
--- Let me re-read Step 389 output carefully.
--- Context.d.ts, Context.lua... TestBootstrap.lua... NO init.lua?!
--- Ah, wait. `dir` output might be truncated? Or strictly alphabetical?
--- I see Context, Lifecycle, TestBootstrap... init should be between Context and Lifecycle?
--- No, I need to check if init.lua exists. I will Assume it is there or check again.
--- Actually, TestBootstrap is what we often import properly?
--- But usually import @rbxts/testez points to index/init.
--- Let's check listing again or try to require TestBootstrap directly if init is missing.
-
--- Correction: Step 389 output shows a lot of files.
--- I'll define a helper to find it.
-
 local testezFolder = ReplicatedStorage.rbxts_include.node_modules["@rbxts"].testez
--- Try to find src folder
-local src = testezFolder:FindFirstChild("src")
-if not src then
-	-- Maybe testez IS the src folder if flat structure? (unlikely)
-	src = testezFolder
+
+-- [FIX]: Resolve TestEZ entry point robustly
+local TestEZModule = testezFolder:FindFirstChild("init")
+
+-- Fallback: Check inside 'src' if init is not found in root
+if not TestEZModule then
+	local src = testezFolder:FindFirstChild("src")
+	if src then
+		TestEZModule = src:FindFirstChild("init")
+	end
 end
 
--- Try to find init script
-local TestEZModule = src:FindFirstChild("init")
-
--- debugging
-if not TestEZModule then
-	print("Could not find init script in " .. src:GetFullName())
-	print("Children:")
-	for _, c in ipairs(src:GetChildren()) do
-		print("- " .. c.Name .. " (" .. c.ClassName .. ")")
+-- Debug: If still not found, print structure to help diagnosis
+if not TestEZModule or not TestEZModule:IsA("ModuleScript") then
+	stdio.write(stdio.color("red") .. "Error: Could not find TestEZ 'init' ModuleScript.\n" .. stdio.color("reset"))
+	print("Path checked: " .. testezFolder:GetFullName())
+	print("Children found:")
+	for _, child in testezFolder:GetChildren() do
+		print(string.format("- %s [%s]", child.Name, child.ClassName))
+		if child.Name == "src" or child:IsA("Folder") then
+			for _, grandChild in child:GetChildren() do
+				print(string.format("  |- %s [%s]", grandChild.Name, grandChild.ClassName))
+			end
+		end
 	end
-	error("TestEZ init module not found")
+	process.exit(1)
 end
 
 local TestEZ = requireInstance(TestEZModule)
