@@ -1,6 +1,10 @@
 {
+	"$schema": "https://raw.githubusercontent.com/rojo-rbx/vscode-rojo/master/schemas/project.template.schema.json",
 	"name": "roblox-ts-rojo-template",
-	"globIgnorePaths": ["**/package.json", "**/tsconfig.json"],
+	"globIgnorePaths": [
+		"**/package.json",
+		"**/tsconfig.json"
+	],
 	"tree": {
 		"$className": "DataModel",
 		"ServerScriptService": {
@@ -9,7 +13,6 @@
 				"$path": "out/server"
 			}
 		},
-
 		"ReplicatedStorage": {
 			"$className": "ReplicatedStorage",
 			"rbxts_include": {
@@ -18,6 +21,9 @@
 					"$className": "Folder",
 					"@rbxts": {
 						"$path": "node_modules/@rbxts"
+					},
+					"@rbxts-js": {
+						"$path": "node_modules/@rbxts-js"
 					}
 				}
 			},
@@ -25,7 +31,6 @@
 				"$path": "out/shared"
 			}
 		},
-
 		"StarterPlayer": {
 			"$className": "StarterPlayer",
 			"StarterPlayerScripts": {
@@ -33,6 +38,24 @@
 				"TS": {
 					"$path": "out/client"
 				}
+			}
+		},
+		"Workspace": {
+			"$className": "Workspace",
+			"$properties": {
+				"FilteringEnabled": true
+			}
+		},
+		"HttpService": {
+			"$className": "HttpService",
+			"$properties": {
+				"HttpEnabled": true
+			}
+		},
+		"SoundService": {
+			"$className": "SoundService",
+			"$properties": {
+				"RespectFilteringEnabled": true
 			}
 		}
 	}

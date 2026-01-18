@@ -1,0 +1,36 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+    ci:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: pnpm
+
+            - run: pnpm install --frozen-lockfile
+
+            - run: pnpm format:check
+            - run: pnpm lint
+            - run: pnpm typecheck
+
+            # Compile TypeScript to Lua (produces /out)
+            - run: pnpm run build
+
+            # Install tools via Rokit
+            - uses: roblox-ts/setup-rokit@v0.1.2
+
+            # Build the Roblox place file
+            - run: rojo build default.project.json -o test.rbxl
+
+            # Run the tests with lune
+            - run: lune run tests/run_tests.luau

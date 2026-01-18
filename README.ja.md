@@ -1,3 +1,7 @@
+[English](README.md) [日本語](README.ja.md)
+
+![CI](https://github.com/takoyakisoft/roblox-ts-rojo-template/actions/workflows/ci.yml/badge.svg)
+
 # これは何？
 
 Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプレートです。
@@ -10,10 +14,7 @@ Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプ�
 > [!CAUTION]
 > 動作未確認ですが、有名なパッケージを入れてあります。
 
-- "@rbxts/janitor"
 - "@rbxts/profileservice"
-- "@rbxts/replicaservice"
-- "@rbxts/cmdr"
 - "@rbxts/testez"
 
 > [!NOTE]
@@ -21,9 +22,6 @@ Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプ�
 
 - "@rbxts/react"
 - "@rbxts/react-roblox"
-
-> [!WARNING]
-> CI/CDは入ってないです
 
 # インストール
 
@@ -44,7 +42,6 @@ pnpm install
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [Rojo](https://marketplace.visualstudio.com/items?itemName=evaera.vscode-rojo)
-
 
 # 使い方
 
@@ -70,3 +67,16 @@ pnpm run watch
 「Rojo」リボン
 
 「Connect」ボタン
+
+# テスト
+
+このプロジェクトでは、[TestEZ](https://github.com/Roblox/testez) と [Lune](https://github.com/lune-org/lune) を使用した自動テストを導入しています。
+
+> [!NOTE]
+> CI環境でのテストは、LuneとAIによって生成されたRoblox APIモックを使用して実行されます。これは主に、Roblox Studio外での基本的なロジックの動作確認を目的としたものです。
+
+## テストの実行
+
+```bash
+pnpm run test
+```

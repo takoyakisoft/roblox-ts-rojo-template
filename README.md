@@ -1,5 +1,7 @@
 [English](README.md) [日本語](README.ja.md)
 
+![CI](https://github.com/takoyakisoft/roblox-ts-rojo-template/actions/workflows/ci.yml/badge.svg)
+
 # What is this?
 
 This is a template for a modern development environment using VSCode for Roblox (TypeScript).
@@ -12,10 +14,7 @@ This is a template for a modern development environment using VSCode for Roblox 
 > [!CAUTION]
 > Functionality is unconfirmed, but popular packages have been included.
 
-- "@rbxts/janitor"
 - "@rbxts/profileservice"
-- "@rbxts/replicaservice"
-- "@rbxts/cmdr"
 - "@rbxts/testez"
 
 > [!NOTE]
@@ -23,9 +22,6 @@ This is a template for a modern development environment using VSCode for Roblox 
 
 - "@rbxts/react"
 - "@rbxts/react-roblox"
-
-> [!WARNING]
-> CI/CD is not included.
 
 # Installation
 
@@ -71,3 +67,16 @@ pnpm run watch
 "Rojo" ribbon
 
 "Connect" button
+
+# Testing
+
+This project uses [TestEZ](https://github.com/Roblox/testez) and [Lune](https://github.com/lune-org/lune) for automated testing.
+
+> [!NOTE]
+> Tests in the CI environment run using AI-generated Roblox API mocks via Lune. This setup is primarily designed for verifying basic logic correctness outside of the Roblox Studio environment.
+
+## Running Tests
+
+```bash
+pnpm run test
+```
