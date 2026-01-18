@@ -3,6 +3,7 @@ local roblox = require("@lune/roblox")
 local luau = require("@lune/luau")
 local stdio = require("@lune/stdio")
 local process = require("@lune/process")
+local task = require("@lune/task")
 
 local file = lune.readFile("test.rbxl")
 local game = roblox.deserializePlace(file)
@@ -28,6 +29,9 @@ local function requireInstance(moduleScript)
 	-- Prepare the environment for the module
 	local env = setmetatable({}, { __index = _G })
 	env.script = moduleScript
+	env.game = game -- [FIX] TestEZ needs global access to 'game'
+	env.task = task -- [FIX] task may also be needed for async ops
+
 	env.require = function(target)
 		if typeof(target) == "Instance" and target:IsA("ModuleScript") then
 			return requireInstance(target)
@@ -50,16 +54,13 @@ local function requireInstance(moduleScript)
 	return result
 end
 
--- Setup global shared environment if needed by TestEZ or tests
--- _G.game = game
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 
 -- Locate TestEZ in the compiled node_modules
 local testezFolder = ReplicatedStorage.rbxts_include.node_modules["@rbxts"].testez
 
--- [FIX]: Check if 'src' itself is the ModuleScript (common in rbxts compilation)
+-- Resolve TestEZ entry point robustly (init or src)
 local TestEZModule = testezFolder:FindFirstChild("init") or testezFolder:FindFirstChild("src")
 
 if not TestEZModule or not TestEZModule:IsA("ModuleScript") then
@@ -74,6 +75,7 @@ end
 local TestEZ = requireInstance(TestEZModule)
 
 -- Run tests
+-- Note: Depending on your tests, you might need to mock other services or globals.
 local results = TestEZ.TestBootstrap:run({
 	ServerScriptService.TS,
 	ReplicatedStorage.TS,
