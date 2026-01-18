@@ -101,7 +101,7 @@ local function smartWrap(instance)
 					if key == "IsA" then
 						return false
 					end
-					error(results[1]) -- results is error message string if failed
+					error(tostring(results)) -- results is error message string if failed
 				end
 				for i, r in ipairs(results) do
 					results[i] = smartWrap(r)

@@ -1,12 +1,12 @@
 -- generate_mocks_studio.lua
--- Roblox Studioで実行する完全なモック生成スクリプト
--- WaitForChildポリフィルを含む全Engine APIを出力
+-- Complete mock generation script to run in Roblox Studio
+-- Outputs all Engine APIs including WaitForChild polyfill
 
 local HttpService = game:GetService("HttpService")
 
--- 包括的なRobloxサービスリスト
+-- Comprehensive Roblox service list
 local SERVICES = {
-	-- コンテナサービス
+	-- Container Services
 	"Workspace",
 	"Lighting",
 	"ReplicatedStorage",
@@ -21,23 +21,23 @@ local SERVICES = {
 	"Chat",
 	"LocalizationService",
 
-	-- 実行サービス
+	-- Execution Services
 	"RunService",
 	"TestService",
 	"NetworkService",
 	"PhysicsService",
 
-	-- データサービス
+	-- Data Services
 	"DataStoreService",
 	"MemoryStoreService",
 	"MessagingService",
 
-	-- プレイヤーサービス
+	-- Player Services
 	"Players",
 	"UserInputService",
 	"ContextActionService",
 
-	-- コンテンツサービス
+	-- Content Services
 	"TweenService",
 	"MarketplaceService",
 	"AssetService",
@@ -50,16 +50,16 @@ local SERVICES = {
 	"PointsService",
 	"GamePassService",
 
-	-- UIサービス
+	-- UI Services
 	"GuiService",
-	"StarterGui",
+
 	"CoreGui",
 
-	-- オーディオサービス
-	"SoundService",
+	-- Audio Services
+
 	"VoiceChatService",
 
-	-- その他サービス
+	-- Other Services
 	"CollectionService",
 	"PathfindingService",
 	"ProximityPromptService",
@@ -69,7 +69,7 @@ local SERVICES = {
 	"StudioService",
 }
 
--- 共通インスタンスメソッド
+-- Common Instance Methods
 local INSTANCE_METHODS = {
 	"FindFirstChild",
 	"WaitForChild",
@@ -93,7 +93,7 @@ local INSTANCE_METHODS = {
 	"GetAttributeChangedSignal",
 }
 
--- 共通インスタンスプロパティ
+-- Common Instance Properties
 local INSTANCE_PROPERTIES = {
 	"Name",
 	"Parent",
@@ -102,10 +102,10 @@ local INSTANCE_PROPERTIES = {
 	"RobloxLocked",
 }
 
--- WaitForChildポリフィル実装
+-- WaitForChild Polyfill Implementation
 local function createWaitForChildPolyfill()
 	return function(parent, childName, timeout)
-		-- 引数検証
+		-- Argument Validation
 		if typeof(parent) ~= "Instance" then
 			error("WaitForChild: parent must be an Instance", 2)
 		end
@@ -114,17 +114,17 @@ local function createWaitForChildPolyfill()
 			error("WaitForChild: childName must be a string", 2)
 		end
 
-		-- 即座にチェック
+		-- Check immediately
 		local child = parent:FindFirstChild(childName)
 		if child then
 			return child
 		end
 
-		-- タイムアウト設定
+		-- Timeout setup
 		local startTime = tick()
 		local timeoutSeconds = timeout or 30
 
-		-- ChildAddedイベントをリッスン
+		-- Listen for ChildAdded
 		local foundChild = nil
 		local connection = parent.ChildAdded:Connect(function(child)
 			if child.Name == childName then
@@ -133,9 +133,9 @@ local function createWaitForChildPolyfill()
 			end
 		end)
 
-		-- 子が見つかるまで待機
+		-- Wait until child is found
 		while not foundChild do
-			-- タイムアウトチェック
+			-- Timeout check
 			if timeoutSeconds > 0 and (tick() - startTime) >= timeoutSeconds then
 				connection:Disconnect()
 				return nil
@@ -143,7 +143,7 @@ local function createWaitForChildPolyfill()
 
 			wait(0.1)
 
-			-- 保険のため再チェック
+			-- Re-check for safety
 			local checkChild = parent:FindFirstChild(childName)
 			if checkChild then
 				foundChild = checkChild
@@ -151,7 +151,7 @@ local function createWaitForChildPolyfill()
 			end
 		end
 
-		-- クリーンアップ
+		-- Cleanup
 		if connection then
 			connection:Disconnect()
 		end
@@ -160,11 +160,11 @@ local function createWaitForChildPolyfill()
 	end
 end
 
--- サービスモック生成
+-- Generate Service Mock
 local function generateServiceMock(serviceName)
 	local mock = {}
 
-	-- 共通メソッドを追加
+	-- Add common methods
 	for _, method in ipairs(INSTANCE_METHODS) do
 		if method == "WaitForChild" then
 			mock[method] = createWaitForChildPolyfill()
@@ -173,12 +173,12 @@ local function generateServiceMock(serviceName)
 		end
 	end
 
-	-- 共通プロパティを追加
+	-- Add common properties
 	for _, prop in ipairs(INSTANCE_PROPERTIES) do
 		mock[prop] = serviceName == "Workspace" and "Workspace" or serviceName
 	end
 
-	-- サービス固有の実装
+	-- Service-specific implementation
 	if serviceName == "RunService" then
 		mock.IsStudio = function()
 			return true
@@ -298,16 +298,16 @@ local function generateServiceMock(serviceName)
 	return mock
 end
 
--- 完全なモックシステム生成
+-- Generate Complete Mock System
 local function generateMockSystem()
 	local serviceMocks = {}
 
-	-- 全サービスのモックを生成
+	-- Generate mocks for all services
 	for _, serviceName in ipairs(SERVICES) do
 		serviceMocks[serviceName] = generateServiceMock(serviceName)
 	end
 
-	-- インスタンスラッパー（WaitForChildポリフィル付き）
+	-- Instance wrapper (with WaitForChild polyfill)
 	local REAL_INSTANCE = newproxy()
 	local waitForChildPolyfill = createWaitForChildPolyfill()
 
@@ -367,7 +367,7 @@ local function generateMockSystem()
 		return proxy
 	end
 
-	-- Enumモック
+	-- Enum Mock
 	local MockEnum = setmetatable({}, {
 		__index = function(self, serviceName)
 			local serviceEnums = setmetatable({}, {
@@ -394,22 +394,22 @@ local function generateMockSystem()
 	}
 end
 
--- モックをファイルに出力
+-- Output mocks to file
 local function outputMocksToFile()
 	local mockSystem = generateMockSystem()
 
-	-- 出力用ModuleScriptを作成
+	-- Create output ModuleScript
 	local outputScript = Instance.new("ModuleScript")
 	outputScript.Name = "RobloxMocks"
 	outputScript.Parent = game.ServerScriptService
 
-	-- Luaコードを生成
+	-- Generate Lua code
 	local code = [[
 -- Auto-generated Roblox API mocks for Studio
 -- Includes WaitForChild polyfill
 -- Generated on: ]] .. os.date("%Y-%m-%d %H:%M:%S") .. [[
 
--- WaitForChildポリフィル実装
+-- WaitForChild Polyfill Implementation
 local function createWaitForChildPolyfill()
     return function(parent, childName, timeout)
         if typeof(parent) ~= "Instance" then
@@ -459,7 +459,7 @@ end
 
 local serviceMocks = {}]]
 
-	-- サービスモックを出力
+	-- Output service mocks
 	for serviceName, mock in pairs(mockSystem.serviceMocks) do
 		code = code .. "\nserviceMocks." .. serviceName .. " = {"
 		for key, value in pairs(mock) do
@@ -482,7 +482,7 @@ local serviceMocks = {}]]
 		code = code .. "\n}"
 	end
 
-	-- インスタンスラッパーとEnumモックを追加
+	-- Add Instance wrapper and Enum mock
 	code = code
 		.. [[
 
@@ -578,5 +578,5 @@ return {
 	print("Services covered: " .. #SERVICES)
 end
 
--- 実行
+-- Execute
 outputMocksToFile()

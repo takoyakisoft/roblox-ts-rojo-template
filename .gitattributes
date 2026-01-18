@@ -1,6 +1,2 @@
 # Normalize line endings in the repo
 * text=auto eol=lf
-
-# Windows script files
-*.bat text eol=crlf
-*.cmd text eol=crlf

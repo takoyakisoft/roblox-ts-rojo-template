@@ -26,7 +26,7 @@ Note: Always ensure `rbxtsc` is running (`pnpm run watch`) during development.
 ### Naming Conventions
 
 - **Files**: `kebab-case` (e.g., `player-data.ts`, `game-manager.ts`).
-    - _Exception_: React components can use `PascalCase` (g.e. `InventoryApp.tsx`).
+    - _Exception_: React components can use `PascalCase` (e.g. `InventoryApp.tsx`).
 - **classes / Interfaces / Components**: `PascalCase`
 - **Functions / Variables**: `camelCase`
 - **Constants**: `UPPER_SNAKE_CASE`

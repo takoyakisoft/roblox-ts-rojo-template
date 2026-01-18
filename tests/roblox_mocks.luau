@@ -1151,34 +1151,6 @@ serviceMocks.GuiService = {
 	RobloxLocked = "GuiService",
 }
 
-serviceMocks.StarterGui = {
-	FindFirstChild = function(...) end,
-	WaitForChild = createWaitForChildPolyfill(),
-	GetChildren = function(...) end,
-	GetDescendants = function(...) end,
-	IsA = function(...) end,
-	Clone = function(...) end,
-	Destroy = function(...) end,
-	FindFirstAncestor = function(...) end,
-	FindFirstAncestorOfClass = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
-	FindFirstChildOfClass = function(...) end,
-	FindFirstChildWhichIsA = function(...) end,
-	GetFullName = function(...) end,
-	GetPropertyChangedSignal = function(...) end,
-	IsAncestorOf = function(...) end,
-	IsDescendantOf = function(...) end,
-	SetAttribute = function(...) end,
-	GetAttribute = function(...) end,
-	GetAttributes = function(...) end,
-	GetAttributeChangedSignal = function(...) end,
-	Name = "StarterGui",
-	Parent = "StarterGui",
-	Archivable = "StarterGui",
-	ClassName = "StarterGui",
-	RobloxLocked = "StarterGui",
-}
-
 serviceMocks.CoreGui = {
 	FindFirstChild = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
@@ -1205,34 +1177,6 @@ serviceMocks.CoreGui = {
 	Archivable = "CoreGui",
 	ClassName = "CoreGui",
 	RobloxLocked = "CoreGui",
-}
-
-serviceMocks.SoundService = {
-	FindFirstChild = function(...) end,
-	WaitForChild = createWaitForChildPolyfill(),
-	GetChildren = function(...) end,
-	GetDescendants = function(...) end,
-	IsA = function(...) end,
-	Clone = function(...) end,
-	Destroy = function(...) end,
-	FindFirstAncestor = function(...) end,
-	FindFirstAncestorOfClass = function(...) end,
-	FindFirstAncestorWhichIsA = function(...) end,
-	FindFirstChildOfClass = function(...) end,
-	FindFirstChildWhichIsA = function(...) end,
-	GetFullName = function(...) end,
-	GetPropertyChangedSignal = function(...) end,
-	IsAncestorOf = function(...) end,
-	IsDescendantOf = function(...) end,
-	SetAttribute = function(...) end,
-	GetAttribute = function(...) end,
-	GetAttributes = function(...) end,
-	GetAttributeChangedSignal = function(...) end,
-	Name = "SoundService",
-	Parent = "SoundService",
-	Archivable = "SoundService",
-	ClassName = "SoundService",
-	RobloxLocked = "SoundService",
 }
 
 serviceMocks.VoiceChatService = {
