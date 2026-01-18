@@ -27,6 +27,7 @@
 		"@rbxts/react-globals": "17.3.7-ts.1",
 		"@rbxts/react-roblox": "17.3.7-ts.1",
 		"@rbxts/services": "^1.6.0",
+		"@rbxts/testez": "0.4.2-ts.0",
 		"@rbxts/types": "^1.0.902",
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
