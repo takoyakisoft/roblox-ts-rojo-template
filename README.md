@@ -12,10 +12,7 @@ This is a template for a modern development environment using VSCode for Roblox 
 > [!CAUTION]
 > Functionality is unconfirmed, but popular packages have been included.
 
-- "@rbxts/janitor"
 - "@rbxts/profileservice"
-- "@rbxts/replicaservice"
-- "@rbxts/cmdr"
 - "@rbxts/testez"
 
 > [!NOTE]
@@ -23,9 +20,6 @@ This is a template for a modern development environment using VSCode for Roblox 
 
 - "@rbxts/react"
 - "@rbxts/react-roblox"
-
-> [!WARNING]
-> CI/CD is not included.
 
 # Installation
 

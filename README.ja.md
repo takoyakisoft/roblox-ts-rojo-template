@@ -10,10 +10,7 @@ Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプ�
 > [!CAUTION]
 > 動作未確認ですが、有名なパッケージを入れてあります。
 
-- "@rbxts/janitor"
 - "@rbxts/profileservice"
-- "@rbxts/replicaservice"
-- "@rbxts/cmdr"
 - "@rbxts/testez"
 
 > [!NOTE]
@@ -21,9 +18,6 @@ Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプ�
 
 - "@rbxts/react"
 - "@rbxts/react-roblox"
-
-> [!WARNING]
-> CI/CDは入ってないです
 
 # インストール
 
@@ -44,7 +38,6 @@ pnpm install
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [Rojo](https://marketplace.visualstudio.com/items?itemName=evaera.vscode-rojo)
-
 
 # 使い方
 
