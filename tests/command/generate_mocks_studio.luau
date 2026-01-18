@@ -126,10 +126,14 @@ local function createWaitForChildPolyfill()
 
 		-- Listen for ChildAdded
 		local foundChild = nil
-		local connection = parent.ChildAdded:Connect(function(child)
+		local connection
+		connection = parent.ChildAdded:Connect(function(child)
 			if child.Name == childName then
 				foundChild = child
-				connection:Disconnect()
+				if connection then
+					connection:Disconnect()
+					connection = nil
+				end
 			end
 		end)
 
@@ -141,7 +145,7 @@ local function createWaitForChildPolyfill()
 				return nil
 			end
 
-			wait(0.1)
+			task.wait(0.1)
 
 			-- Re-check for safety
 			local checkChild = parent:FindFirstChild(childName)
@@ -174,8 +178,17 @@ local function generateServiceMock(serviceName)
 	end
 
 	-- Add common properties
+	-- Add common properties
 	for _, prop in ipairs(INSTANCE_PROPERTIES) do
-		mock[prop] = serviceName == "Workspace" and "Workspace" or serviceName
+		if prop == "Parent" then
+			mock.Parent = nil
+		elseif prop == "Archivable" then
+			mock.Archivable = true
+		elseif prop == "RobloxLocked" then
+			mock.RobloxLocked = false
+		else
+			mock[prop] = serviceName == "Workspace" and "Workspace" or serviceName
+		end
 	end
 
 	-- Service-specific implementation
@@ -197,7 +210,7 @@ local function generateServiceMock(serviceName)
 		end
 		mock.Heartbeat = {
 			Wait = function()
-				wait()
+				task.wait()
 			end,
 			Connect = function()
 				return { Disconnect = function() end }
@@ -205,7 +218,7 @@ local function generateServiceMock(serviceName)
 		}
 		mock.Stepped = {
 			Wait = function()
-				wait()
+				task.wait()
 			end,
 			Connect = function()
 				return { Disconnect = function() end }
@@ -213,7 +226,7 @@ local function generateServiceMock(serviceName)
 		}
 		mock.RenderStepped = {
 			Wait = function()
-				wait()
+				task.wait()
 			end,
 			Connect = function()
 				return { Disconnect = function() end }
@@ -459,25 +472,45 @@ end
 
 local serviceMocks = {}]]
 
+	local function serializeValue(val, indent)
+		indent = indent or "  "
+		local t = type(val)
+		if t == "function" then
+			return "function(...) end"
+		elseif t == "string" then
+			return string.format("%q", val)
+		elseif t == "number" or t == "boolean" then
+			return tostring(val)
+		elseif t == "nil" then
+			return "nil"
+		elseif t == "table" then
+			local res = "{"
+			for k, v in pairs(val) do
+				local valStr
+				if k == "WaitForChild" and type(v) == "function" then
+					valStr = "createWaitForChildPolyfill()"
+				else
+					valStr = serializeValue(v, indent .. "  ")
+				end
+				res = res .. "\n" .. indent .. "  " .. k .. " = " .. valStr .. ","
+			end
+			res = res .. "\n" .. indent .. "}"
+			return res
+		end
+		return "nil"
+	end
+
 	-- Output service mocks
 	for serviceName, mock in pairs(mockSystem.serviceMocks) do
 		code = code .. "\nserviceMocks." .. serviceName .. " = {"
 		for key, value in pairs(mock) do
-			if type(value) == "function" then
-				if key == "WaitForChild" then
-					code = code .. "\n  " .. key .. " = createWaitForChildPolyfill(),"
-				else
-					code = code .. "\n  " .. key .. " = function(...) end,"
-				end
-			elseif type(value) == "table" then
-				code = code .. "\n  " .. key .. " = {},"
-			elseif type(value) == "string" then
-				code = code .. "\n  " .. key .. " = " .. string.format("%q", value) .. ","
-			elseif type(value) == "number" then
-				code = code .. "\n  " .. key .. " = " .. tostring(value) .. ","
-			elseif type(value) == "boolean" then
-				code = code .. "\n  " .. key .. " = " .. tostring(value) .. ","
+			local serialized
+			if key == "WaitForChild" and type(value) == "function" then
+				serialized = "createWaitForChildPolyfill()"
+			else
+				serialized = serializeValue(value, "  ")
 			end
+			code = code .. "\n  " .. key .. " = " .. serialized .. ","
 		end
 		code = code .. "\n}"
 	end
