@@ -1,3 +1,7 @@
+[English](README.md) [日本語](README.ja.md)
+
+![CI](https://github.com/takoyakisoft/roblox-ts-rojo-template/actions/workflows/ci.yml/badge.svg)
+
 # これは何？
 
 Roblox（TypeScript）でVSCodeを使ったモダンな開発環境のテンプレートです。

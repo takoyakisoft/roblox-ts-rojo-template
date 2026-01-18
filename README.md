@@ -1,5 +1,7 @@
 [English](README.md) [日本語](README.ja.md)
 
+![CI](https://github.com/takoyakisoft/roblox-ts-rojo-template/actions/workflows/ci.yml/badge.svg)
+
 # What is this?
 
 This is a template for a modern development environment using VSCode for Roblox (TypeScript).
