@@ -102,6 +102,14 @@ local INSTANCE_PROPERTIES = {
 	"RobloxLocked",
 }
 
+-- Common Instance Events
+local INSTANCE_EVENTS = {
+	"ChildAdded",
+	"ChildRemoved",
+	"DescendantAdded",
+	"DescendantRemoving",
+}
+
 -- WaitForChild Polyfill Implementation
 local function createWaitForChildPolyfill()
 	return function(parent, childName, timeout)
@@ -125,18 +133,21 @@ local function createWaitForChildPolyfill()
 		local startTime = tick()
 		local timeoutSeconds = timeout or 30
 
-		-- Listen for ChildAdded
+		-- Listen for ChildAdded (if available)
 		local foundChild = nil
 		local connection
-		connection = parent.ChildAdded:Connect(function(child)
-			if child.Name == childName then
-				foundChild = child
-				if connection then
-					connection:Disconnect()
-					connection = nil
+		local childAdded = (parent :: any).ChildAdded
+		if childAdded and type(childAdded) == "table" and type(childAdded.Connect) == "function" then
+			connection = childAdded:Connect(function(child)
+				if child.Name == childName then
+					foundChild = child
+					if connection then
+						connection:Disconnect()
+						connection = nil
+					end
 				end
-			end
-		end)
+			end)
+		end
 
 		-- Wait until child is found
 		while not foundChild do
@@ -179,7 +190,6 @@ local function generateServiceMock(serviceName)
 	end
 
 	-- Add common properties
-	-- Add common properties
 	for _, prop in ipairs(INSTANCE_PROPERTIES) do
 		if prop == "Parent" then
 			mock.Parent = nil
@@ -190,6 +200,21 @@ local function generateServiceMock(serviceName)
 		else
 			mock[prop] = serviceName == "Workspace" and "Workspace" or serviceName
 		end
+	end
+
+	-- Add common events
+	for _, event in ipairs(INSTANCE_EVENTS) do
+		mock[event] = {
+			Connect = function()
+				return {
+					Disconnect = function() end,
+					Connected = true,
+				}
+			end,
+			Wait = function()
+				task.wait(99999)
+			end,
+		}
 	end
 
 	-- Service-specific implementation
@@ -444,15 +469,18 @@ local function createWaitForChildPolyfill()
         local timeoutSeconds = timeout or 30
         local foundChild = nil
         local connection
-        connection = parent.ChildAdded:Connect(function(child)
-            if child.Name == childName then
-                foundChild = child
-                if connection then
-                    connection:Disconnect()
-                    connection = nil
+        local childAdded = (parent :: any).ChildAdded
+        if childAdded and type(childAdded) == "table" and type(childAdded.Connect) == "function" then
+            connection = childAdded:Connect(function(child)
+                if child.Name == childName then
+                    foundChild = child
+                    if connection then
+                        connection:Disconnect()
+                        connection = nil
+                    end
                 end
-            end
-        end)
+            end)
+        end
 
         while not foundChild do
             if timeoutSeconds > 0 and (tick() - startTime) >= timeoutSeconds then

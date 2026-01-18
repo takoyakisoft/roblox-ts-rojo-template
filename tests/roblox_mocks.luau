@@ -22,15 +22,18 @@ local function createWaitForChildPolyfill()
 		local timeoutSeconds = timeout or 30
 		local foundChild = nil
 		local connection
-		connection = parent.ChildAdded:Connect(function(child)
-			if child.Name == childName then
-				foundChild = child
-				if connection then
-					connection:Disconnect()
-					connection = nil
+		local childAdded = (parent :: any).ChildAdded
+		if childAdded and type(childAdded) == "table" and type(childAdded.Connect) == "function" then
+			connection = childAdded:Connect(function(child)
+				if child.Name == childName then
+					foundChild = child
+					if connection then
+						connection:Disconnect()
+						connection = nil
+					end
 				end
-			end
-		end)
+			end)
+		end
 
 		while not foundChild do
 			if timeoutSeconds > 0 and (tick() - startTime) >= timeoutSeconds then
