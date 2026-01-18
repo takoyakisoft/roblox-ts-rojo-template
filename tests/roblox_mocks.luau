@@ -1,6 +1,6 @@
 -- Auto-generated Roblox API mocks for Studio
 -- Includes WaitForChild polyfill
--- Generated on: 2026-01-18 20:45:40
+-- Generated on: 2026-01-18 20:51:42
 -- WaitForChild Polyfill Implementation
 local function createWaitForChildPolyfill()
 	return function(parent, childName, timeout)
@@ -63,9 +63,25 @@ end
 local serviceMocks = {}
 serviceMocks.BadgeService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -89,9 +105,25 @@ serviceMocks.BadgeService = {
 }
 serviceMocks.CoreGui = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -115,9 +147,25 @@ serviceMocks.CoreGui = {
 }
 serviceMocks.GroupService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -141,9 +189,25 @@ serviceMocks.GroupService = {
 }
 serviceMocks.ReplicatedFirst = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -167,9 +231,25 @@ serviceMocks.ReplicatedFirst = {
 }
 serviceMocks.StarterPack = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -193,9 +273,25 @@ serviceMocks.StarterPack = {
 }
 serviceMocks.Chat = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -219,9 +315,25 @@ serviceMocks.Chat = {
 }
 serviceMocks.ServerStorage = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -244,17 +356,33 @@ serviceMocks.ServerStorage = {
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.Workspace = {
-	FindFirstChild = function(...) end,
-	GetDescendants = function(...) end,
-	GetChildren = function(...) end,
-	FindFirstAncestorOfClass = function(...) end,
 	Terrain = {
 		CellCount = 512,
 		MaxCellSize = 4,
 	},
+	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	CurrentCamera = {
 		CFrame = nil,
 		FieldOfView = 70,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	GetDescendants = function(...) end,
+	GetChildren = function(...) end,
+	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
 	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
@@ -279,9 +407,25 @@ serviceMocks.Workspace = {
 }
 serviceMocks.StarterGui = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -305,9 +449,25 @@ serviceMocks.StarterGui = {
 }
 serviceMocks.TeleportService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -330,18 +490,34 @@ serviceMocks.TeleportService = {
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.Players = {
-	FindFirstChild = function(...) end,
 	PlayerRemoving = {
 		Connect = function(...) end,
 	},
 	PlayerAdded = {
 		Connect = function(...) end,
 	},
+	Archivable = true,
+	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	GetPlayers = function(...) end,
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
-	Archivable = true,
-	GetPlayers = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -369,9 +545,25 @@ serviceMocks.Players = {
 }
 serviceMocks.AssetService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -395,9 +587,25 @@ serviceMocks.AssetService = {
 }
 serviceMocks.PathfindingService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -421,9 +629,25 @@ serviceMocks.PathfindingService = {
 }
 serviceMocks.LeaderboardService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -446,53 +670,85 @@ serviceMocks.LeaderboardService = {
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.RunService = {
-	GetAttribute = function(...) end,
-	Stepped = {
-		Connect = function(...) end,
-		Wait = function(...) end,
-	},
-	Heartbeat = {
-		Connect = function(...) end,
-		Wait = function(...) end,
-	},
 	FindFirstChild = function(...) end,
 	IsClient = function(...) end,
-	IsRunning = function(...) end,
-	IsRunMode = function(...) end,
 	GetDescendants = function(...) end,
-	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
 	IsStudio = function(...) end,
 	IsServer = function(...) end,
-	RobloxLocked = false,
-	IsDescendantOf = function(...) end,
-	SetAttribute = function(...) end,
 	RenderStepped = {
 		Connect = function(...) end,
 		Wait = function(...) end,
 	},
 	Destroy = function(...) end,
-	Archivable = true,
-	GetFullName = function(...) end,
+	GetAttribute = function(...) end,
 	WaitForChild = createWaitForChildPolyfill(),
-	FindFirstChildWhichIsA = function(...) end,
-	Name = "RunService",
-	GetAttributeChangedSignal = function(...) end,
 	GetPropertyChangedSignal = function(...) end,
+	GetAttributeChangedSignal = function(...) end,
 	FindFirstAncestorWhichIsA = function(...) end,
+	Stepped = {
+		Connect = function(...) end,
+		Wait = function(...) end,
+	},
+	ClassName = "RunService",
+	GetAttributes = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	GetChildren = function(...) end,
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	IsDescendantOf = function(...) end,
+	Archivable = true,
+	Heartbeat = {
+		Connect = function(...) end,
+		Wait = function(...) end,
+	},
+	GetFullName = function(...) end,
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	IsRunMode = function(...) end,
+	IsRunning = function(...) end,
+	FindFirstChildWhichIsA = function(...) end,
+	RobloxLocked = false,
+	FindFirstChildOfClass = function(...) end,
 	IsAncestorOf = function(...) end,
 	Clone = function(...) end,
-	ClassName = "RunService",
+	SetAttribute = function(...) end,
 	FindFirstAncestor = function(...) end,
-	GetAttributes = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	IsA = function(...) end,
-	FindFirstChildOfClass = function(...) end,
+	Name = "RunService",
 }
 serviceMocks.VoiceChatService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -515,13 +771,29 @@ serviceMocks.VoiceChatService = {
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.TestService = {
-	FindFirstChild = function(...) end,
 	Checkpoint = function(...) end,
+	Message = function(...) end,
+	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	Error = function(...) end,
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
-	Message = function(...) end,
-	Error = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -545,9 +817,25 @@ serviceMocks.TestService = {
 }
 serviceMocks.ProximityPromptService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -571,9 +859,25 @@ serviceMocks.ProximityPromptService = {
 }
 serviceMocks.Lighting = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -597,9 +901,25 @@ serviceMocks.Lighting = {
 }
 serviceMocks.ServerScriptService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -623,9 +943,25 @@ serviceMocks.ServerScriptService = {
 }
 serviceMocks.AvatarEditorService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -649,9 +985,25 @@ serviceMocks.AvatarEditorService = {
 }
 serviceMocks.NetworkService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -675,9 +1027,25 @@ serviceMocks.NetworkService = {
 }
 serviceMocks.MarketplaceService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -701,9 +1069,25 @@ serviceMocks.MarketplaceService = {
 }
 serviceMocks.StudioService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -727,9 +1111,25 @@ serviceMocks.StudioService = {
 }
 serviceMocks.MessagingService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -753,9 +1153,25 @@ serviceMocks.MessagingService = {
 }
 serviceMocks.SocialService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -779,9 +1195,25 @@ serviceMocks.SocialService = {
 }
 serviceMocks.UserInputService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -804,14 +1236,30 @@ serviceMocks.UserInputService = {
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.HttpService = {
+	JSONDecode = function(...) end,
+	GetAsync = function(...) end,
 	PostAsync = function(...) end,
 	FindFirstChild = function(...) end,
-	GetAsync = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	JSONEncode = function(...) end,
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
-	JSONEncode = function(...) end,
-	JSONDecode = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -835,9 +1283,25 @@ serviceMocks.HttpService = {
 }
 serviceMocks.CollectionService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -861,9 +1325,25 @@ serviceMocks.CollectionService = {
 }
 serviceMocks.StarterPlayer = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -887,9 +1367,25 @@ serviceMocks.StarterPlayer = {
 }
 serviceMocks.GuiService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -913,9 +1409,25 @@ serviceMocks.GuiService = {
 }
 serviceMocks.GamePassService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -939,9 +1451,25 @@ serviceMocks.GamePassService = {
 }
 serviceMocks.LocalizationService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -965,9 +1493,25 @@ serviceMocks.LocalizationService = {
 }
 serviceMocks.SoundService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -991,9 +1535,25 @@ serviceMocks.SoundService = {
 }
 serviceMocks.InsertService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1017,9 +1577,25 @@ serviceMocks.InsertService = {
 }
 serviceMocks.MemoryStoreService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1042,12 +1618,28 @@ serviceMocks.MemoryStoreService = {
 	FindFirstChildOfClass = function(...) end,
 }
 serviceMocks.DataStoreService = {
+	GetGlobalDataStore = function(...) end,
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	GetDataStore = function(...) end,
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
-	GetGlobalDataStore = function(...) end,
-	GetDataStore = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1071,9 +1663,25 @@ serviceMocks.DataStoreService = {
 }
 serviceMocks.FriendService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1097,9 +1705,25 @@ serviceMocks.FriendService = {
 }
 serviceMocks.Teams = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1123,9 +1747,25 @@ serviceMocks.Teams = {
 }
 serviceMocks.ContextActionService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1149,9 +1789,25 @@ serviceMocks.ContextActionService = {
 }
 serviceMocks.PointsService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1175,9 +1831,25 @@ serviceMocks.PointsService = {
 }
 serviceMocks.TweenService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1201,9 +1873,25 @@ serviceMocks.TweenService = {
 }
 serviceMocks.PhysicsService = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
@@ -1227,9 +1915,25 @@ serviceMocks.PhysicsService = {
 }
 serviceMocks.ReplicatedStorage = {
 	FindFirstChild = function(...) end,
+	DescendantAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	DescendantRemoving = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	GetDescendants = function(...) end,
 	GetChildren = function(...) end,
 	FindFirstAncestorOfClass = function(...) end,
+	ChildRemoved = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
+	ChildAdded = {
+		Wait = function(...) end,
+		Connect = function(...) end,
+	},
 	RobloxLocked = false,
 	IsDescendantOf = function(...) end,
 	SetAttribute = function(...) end,
