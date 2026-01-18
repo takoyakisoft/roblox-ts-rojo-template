@@ -11,77 +11,9 @@ local gameReal = roblox.deserializePlace(file)
 
 -- 2. Polyfills & Mocks (Lune -> Roblox Compatibility)
 
--- Instance:WaitForChild polyfill
-local function patchInstances(root)
-	for _, instance in ipairs(root:GetDescendants()) do
-		-- Lune's instances are handled via metatables, but we can't easily patch them.
-		-- Instead, we ensure the environment's 'game' and 'script' proxies handle these.
-	end
-end
+-- Key to unwrap proxies
+local REAL_INSTANCE = newproxy()
 
-local MockRunService = {
-	IsStudio = function()
-		return false
-	end,
-	IsRunning = function()
-		return true
-	end,
-	IsRunMode = function()
-		return true
-	end,
-	IsClient = function()
-		return false
-	end,
-	IsServer = function()
-		return true
-	end,
-	Heartbeat = {
-		Wait = function()
-			return task.wait()
-		end,
-		Connect = function()
-			return { Disconnect = function() end }
-		end,
-	},
-	Stepped = {
-		Wait = function()
-			return task.wait()
-		end,
-		Connect = function()
-			return { Disconnect = function() end }
-		end,
-	},
-}
-
-local MockTestService = {
-	Error = function(_, message)
-		stdio.write(stdio.color("red") .. "[TestService Error] " .. message .. stdio.color("reset") .. "\n")
-	end,
-	Message = function(_, message)
-		print("[TestService Message] " .. message)
-	end,
-	Checkpoint = function() end,
-}
-
--- Mock Enum
-local MockEnum = setmetatable({}, {
-	__index = function(self, serviceName)
-		local serviceEnums = setmetatable({}, {
-			__index = function(self2, itemName)
-				local item = newproxy(true)
-				getmetatable(item).__tostring = function()
-					return "Enum." .. serviceName .. "." .. itemName
-				end
-				rawset(self2, itemName, item)
-				return item
-			end,
-		})
-		rawset(self, serviceName, serviceEnums)
-		return serviceEnums
-	end,
-})
-
--- Instance Proxy to handle WaitForChild etc.
 local function wrapInstance(instance)
 	if typeof(instance) ~= "Instance" then
 		return instance
@@ -91,6 +23,10 @@ local function wrapInstance(instance)
 	local meta = getmetatable(proxy)
 
 	meta.__index = function(_, key)
+		if key == REAL_INSTANCE then
+			return instance
+		end
+
 		if key == "WaitForChild" then
 			return function(_, childName)
 				local child = instance:FindFirstChild(childName)
@@ -99,10 +35,56 @@ local function wrapInstance(instance)
 		elseif key == "GetService" and instance == gameReal then
 			return function(_, serviceName)
 				if serviceName == "RunService" then
-					return MockRunService
+					return {
+						IsStudio = function()
+							return false
+						end,
+						IsRunning = function()
+							return true
+						end,
+						IsRunMode = function()
+							return true
+						end,
+						IsClient = function()
+							return false
+						end,
+						IsServer = function()
+							return true
+						end,
+						Heartbeat = {
+							Wait = function()
+								return task.wait()
+							end,
+							Connect = function()
+								return { Disconnect = function() end }
+							end,
+						},
+						Stepped = {
+							Wait = function()
+								return task.wait()
+							end,
+							Connect = function()
+								return { Disconnect = function() end }
+							end,
+						},
+					}
 				end
 				if serviceName == "TestService" then
-					return MockTestService
+					return {
+						Error = function(_, message)
+							stdio.write(
+								stdio.color("red")
+									.. "[TestService Error] "
+									.. tostring(message)
+									.. stdio.color("reset")
+									.. "\n"
+							)
+						end,
+						Message = function(_, message)
+							print("[TestService Message] " .. tostring(message))
+						end,
+						Checkpoint = function() end,
+					}
 				end
 				return wrapInstance(gameReal:GetService(serviceName))
 			end
@@ -112,9 +94,17 @@ local function wrapInstance(instance)
 		if typeof(val) == "function" then
 			return function(_, ...)
 				local args = { ... }
-				-- Unmask proxies if passed back to real methods
+				-- Extract real instances from proxies
 				for i, v in ipairs(args) do
-					-- (This is simplified, real unmasking might be needed)
+					if typeof(v) == "userdata" then
+						local m = getmetatable(v)
+						if m and m.__index then
+							local real = v[REAL_INSTANCE]
+							if real then
+								args[i] = real
+							end
+						end
+					end
 				end
 				local results = { val(instance, unpack(args)) }
 				-- Wrap results
@@ -135,10 +125,36 @@ end
 
 local GameProxy = wrapInstance(gameReal)
 
+-- Mock Enum
+local MockEnum = setmetatable({}, {
+	__index = function(self, serviceName)
+		local serviceEnums = setmetatable({}, {
+			__index = function(self2, itemName)
+				local item = newproxy(true)
+				getmetatable(item).__tostring = function()
+					return "Enum." .. serviceName .. "." .. itemName
+				end
+				rawset(self2, itemName, item)
+				return item
+			end,
+		})
+		rawset(self, serviceName, serviceEnums)
+		return serviceEnums
+	end,
+})
+
 -- 3. Module Loader
 local loadedModules = {}
 
 local function requireInstance(moduleScript)
+	-- Unwrap proxy if necessary
+	if typeof(moduleScript) == "userdata" then
+		local real = moduleScript[REAL_INSTANCE]
+		if real then
+			moduleScript = real
+		end
+	end
+
 	if typeof(moduleScript) ~= "Instance" or not moduleScript:IsA("ModuleScript") then
 		error("Attempted to require a non-ModuleScript: " .. tostring(moduleScript))
 	end
@@ -165,26 +181,25 @@ local function requireInstance(moduleScript)
 	end
 
 	env.require = function(target)
-		if typeof(target) == "userdata" then -- Check if it's our proxy
-			-- Extract real instance from proxy would be better,
-			-- but here we assume the target passed to require is the real instance or handled
-		end
-
-		-- If it's a proxy, we might need a way to get back the real instance
-		-- For now, let's try to handle both
 		local realTarget = target
-		-- (Implementation detail: how to get real instance from proxy?
-		-- For simplicity, let's try to find it in the game)
+		if typeof(target) == "userdata" then
+			local real = target[REAL_INSTANCE]
+			if real then
+				realTarget = real
+			end
+		end
 
 		if typeof(realTarget) == "Instance" and realTarget:IsA("ModuleScript") then
 			return requireInstance(realTarget)
 		end
 
+		-- Fallback to standard require (expects string)
 		return require(target)
 	end
 
-	local bytecode = luau.compile(moduleScript.Source)
+	-- Compile and run
 	local success, result = pcall(function()
+		local bytecode = luau.compile(moduleScript.Source)
 		local fn = luau.load(bytecode, { environment = env })
 		return fn()
 	end)
