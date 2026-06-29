@@ -28,15 +28,15 @@
 		"@rbxts/react-roblox": "17.3.7-ts.2",
 		"@rbxts/services": "^1.6.0",
 		"@rbxts/testez": "0.4.2-ts.0",
-		"@rbxts/types": "^1.0.929",
-		"eslint": "^10.5.0",
+		"@rbxts/types": "^1.0.933",
+		"eslint": "^10.6.0",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-prettier": "^5.5.6",
 		"eslint-plugin-roblox-ts": "^1.4.0",
 		"jiti": "^2.7.0",
-		"prettier": "^3.8.4",
+		"prettier": "^3.9.1",
 		"roblox-ts": "3.0.0",
-		"typescript": "^5.9.3",
+		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.62.0"
 	}
 }
